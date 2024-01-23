@@ -52,6 +52,31 @@ describe('#Person Suite', () => {
         })
     })
 
+    describe('#save', () => {
+        it('should save a person if all the necessary props are included', () => {
+            const mockPerson = {
+                name: 'Gabriel',
+                cpf: '12345678912',
+                lastName: 'Francisco'
+            }
+            console.log = jest.fn();
+            Person.save(mockPerson)
+            expect(() => Person.save(mockPerson))
+                .not
+                .toThrow()
+            expect(console.log).toHaveBeenCalledWith('Registrado com sucesso!', mockPerson)
+        })
+        it('should throw an error if a necessary prop is missing', () => {
+            const mockInvalidPerson = {
+                name: 'Gabriel',
+                cpf: '',
+                lastName: 'Francisco'
+            }
+            expect(() => Person.save(mockInvalidPerson))
+                .toThrow(new Error(`cannot save invalid person: ${JSON.stringify(mockInvalidPerson)}`))
+        })
+    })
+
     describe('#process', () => {
         it('should process a valid person', () => {
             const mockPerson = {
