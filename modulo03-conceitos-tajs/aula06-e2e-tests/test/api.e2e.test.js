@@ -55,7 +55,7 @@ describe('E2E Test Suite', () => {
             });
             expect(response.status).toBe(404);
         })
-        it('should return 400 and missing field message when body is invalid', async () => {
+        it('should return 400 when name is missing', async () => {
             let invalidPerson = {
                 "invalido": 'gabriel'
             };
@@ -64,6 +64,28 @@ describe('E2E Test Suite', () => {
                 body: JSON.stringify(invalidPerson)
             });
             expect(response.status).toBe(400);
+        })
+        it('should return 400 when cpf is missing', async () => {
+            let invalidPerson = {
+                "name": 'gabriel'
+            };
+            const response = await fetch(`${_testServerAddress}/persons`, {
+                method: 'POST',
+                body: JSON.stringify(invalidPerson)
+            });
+            expect(response.status).toBe(400);
+        })
+        it('should return 500 when a different error occurr', async () => {
+            jest
+            .spyOn(
+                console,
+                'log'
+            ).mockReturnValue(() => {throw new Error('deu ruim')})
+            const response = await fetch(`${_testServerAddress}/persons`, {
+                method: 'POST',
+                body: JSON.stringify({name: 'Gabriel', cpf: '123.123.123-45'})
+            });
+            expect(response.status).toBe(500);
         })
     })
 })
