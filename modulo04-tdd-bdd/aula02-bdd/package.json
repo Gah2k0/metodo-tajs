@@ -1,0 +1,24 @@
+{
+  "name": "aula01-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "PORT=3000 node --watch src/index.js",
+    "test": "npx cucumber-js",
+    "test:dev": "node --watch node_modules/.bin/cucumber-js --fail-fast --format progress --format html:cucumber-report.html",
+    "test:debug": "node --watch --inspect-brk node_modules/.bin/cucumber-js --fail-fast --format progress --format html:cucumber-report.html"
+  },
+  "keywords": [],
+  "author": "Gabriel",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": "v20.10.0"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.0.1",
+    "jest": "^29.7.0",
+    "sinon": "^18.0.0"
+  }
+}
