@@ -42,7 +42,7 @@ npm run test:watch
 
 ## Checklist Desafio
 
-- [] - Adicionar banco de dados para API
+- [X] - Adicionar banco de dados para API
 - [] - Testes e2e para toda a UI na Web
 - [] - Testes e2e para toda a UI na CLI
 - [] - Testes e2e para toda a API

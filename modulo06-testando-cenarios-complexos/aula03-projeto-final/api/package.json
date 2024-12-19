@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.0.2",
+    "mongodb": "^6.12.0"
   },
   "type": "module",
   "engines": {
@@ -9,9 +10,9 @@
   "name": "api",
   "version": "0.0.1",
   "main": "api.js",
-  "devDependencies": {},
   "scripts": {
-    "start": "node --watch api.js"
+    "start": "node --watch api.js",
+    "dev": "node --watch api.js"
   },
   "keywords": [],
   "author": "",
