@@ -2,12 +2,12 @@ import { createServer } from 'node:http'
 import { faker } from '@faker-js/faker'
 import { setTimeout } from 'node:timers/promises'
 import { once } from 'node:events'
-import { getDb } from './db.js'
-createServer(async (req, res) => {
+import UserService from './userService.js'
+const server = createServer(async (req, res) => {
+    const usersService = new UserService();
     // Allow CORS for all origins and methods
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', '*')
-    const { dbClient, collections: { dbUsers } } = await getDb()
 
     // Handling preflight requests
     if (req.method === 'OPTIONS') {
@@ -25,33 +25,30 @@ createServer(async (req, res) => {
         return;
     }
 
-    if(req.method === 'GET') {
-        const users = await dbUsers
-            .find()
-            .project({ _id: 0 })
-            .sort({ name: 1 })
-            .toArray()
-
+    if(req.method === 'GET' && req.url.includes('/users')) {
+        const users = await usersService.getUsers();
         res.writeHead(200);
         res.write(JSON.stringify(users));
         res.end();
         return;
     }
 
-    if(req.method === 'POST') {
-        const { appId, ...args } = JSON.parse(await once(req, 'data'))
-        console.log(`[app: ${appId}]`, args)
+    if(req.method === 'POST' && req.url.includes('/users')) {
+        const { appId, ...body } = JSON.parse(await once(req, 'data'))
+        console.log(`[app: ${appId}]`, body)
 
-        const user = {
-            id: 1,
-            name: args.name,
-            age: args.age,
-            email: args.email,
-            phone: args.phone,
-            vehicle: args.vehicle,
-        }
+        const user = await usersService.createUser(body);
+        res.writeHead(201);
+        res.write(JSON.stringify(user).concat('\n'));
+        res.end();
+        return;
+    }
 
-        await dbUsers.insertOne(user);
+    if(req.method === 'POST' && req.url.includes('/users')) {
+        const { appId, ...body } = JSON.parse(await once(req, 'data'))
+        console.log(`[app: ${appId}]`, body)
+
+        const user = await usersService.createUser(body);
         res.writeHead(201);
         res.write(JSON.stringify(user).concat('\n'));
         res.end();
@@ -68,4 +65,6 @@ createServer(async (req, res) => {
     // Set the response headers and send the data as JSON
     return res.end()
 
-}).listen(3000, () => console.log('Server is running at http://localhost:3000/'))
+})
+
+export { server };

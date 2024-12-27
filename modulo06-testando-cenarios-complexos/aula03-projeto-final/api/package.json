@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
+    "jest": "^29.7.0",
     "mongodb": "^6.12.0"
   },
   "type": "module",
@@ -11,8 +12,11 @@
   "version": "0.0.1",
   "main": "api.js",
   "scripts": {
-    "start": "node --watch api.js",
-    "dev": "node --watch api.js"
+    "start": "PORT=3000 node src/index.js",
+    "dev": "node --watch ./src/api.js",
+    "test": "DEBUG=nock* NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand --injectGlobals false test/",
+    "test:dev": "DEBUG=nock* NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand --injectGlobals false --watchAll test/",
+    "test:debug": "node --experimental-vm-modules --inspect-brk node_modules/.bin/jest --runInBand --injectGlobals false --watchAll test/"
   },
   "keywords": [],
   "author": "",
