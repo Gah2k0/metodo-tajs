@@ -14,7 +14,6 @@ async function connect() {
 }
 
 async function getDb() {
-    // Initial connection attempt
     const { collections, dbClient } = await connect();
 
     return { collections, dbClient };
