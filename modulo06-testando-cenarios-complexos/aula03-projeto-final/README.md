@@ -50,8 +50,8 @@ npm run test:watch
 
 ### Plus
 
-- [] - Adicionar funcionalidade para cadastro de pessoa
-- [] - Adicionar funcionalidade para edição de pessoa
-- [] - Adicionar funcionalidade para atualização de pessoa
-- [] - Adicionar funcionalidade para remoção de pessoa
+- [X] - Adicionar funcionalidade para cadastro de pessoa
+- [X] - Adicionar funcionalidade para edição de pessoa
+- [X] - Adicionar funcionalidade para atualização de pessoa
+- [X] - Adicionar funcionalidade para remoção de pessoa
 - [] - Colocar testes para rodar em GitHub Actions

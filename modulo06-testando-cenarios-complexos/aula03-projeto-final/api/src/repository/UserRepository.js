@@ -10,6 +10,14 @@ class UserRepository {
         return await dbUsers.insertOne(user);
     }
 
+    async updateOne(query, user) {
+        return await dbUsers.replaceOne(query, user);
+    }
+
+    async deleteOne(query) {
+        return await dbUsers.deleteOne(query);
+    }
+
     async get(query) {
         return await dbUsers
             .find()
