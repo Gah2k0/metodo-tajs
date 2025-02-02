@@ -17,10 +17,7 @@ class UserController {
             vehicle: body.vehicle,
         }
         await this.userRepository.insertOne(user);
-        res.writeHead(201);
-        res.write(JSON.stringify(user).concat('\n'));
-        res.end();
-        return;
+        return res.status(201).json(user)
     }
 
     async getUsers(req, res) {
