@@ -42,7 +42,7 @@ class UserController {
             vehicle: body.vehicle,
         }
         await this.userRepository.updateOne(query, user);
-        res.writeHead(201);
+        res.writeHead(200);
         res.write(JSON.stringify(user).concat('\n'));
         res.end();
         return;
